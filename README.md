@@ -1,6 +1,7 @@
 # Personal_planner
 
 ## Description
+The purpose of this challenge was to 
 
 ## User Story
 
