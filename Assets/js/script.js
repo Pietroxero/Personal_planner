@@ -62,6 +62,8 @@ var dailySchedule = [
 
 ];
 
+
+
 $(document).ready(function () {
 
 function displayDate() {
@@ -74,14 +76,27 @@ function displayDate() {
   function save(event) {
     let hour = event.target.getAttribute("data-hour");
     let input = $(`textarea[data-hour="${hour}"]`);
+    console.log(event);
+    console.log(hour);
     console.log(input.val());
+    console.log(dailySchedule)
     for ( let i = 0; i <dailySchedule.length; i++){
-        if(dailySchedule[i].tag ==hour){
+        if(dailySchedule[i].hours ==hour){
             dailySchedule[i].entry = input.val();
         }
     }
-    //save to locale storage loop
+    
+  
   }
+    //save to locale storage loop
+    // localStorage.getItem
+    // let localDailySchedule = localStorage.getItem(input.val);
+    //  if (localDailySchedule === null) {
+    //   dailySchedule = localDailySchedule;
+      // localDailyStorage.setItem = JSON.parse(localStorage.getItem("textarea", 'entry'));
+      //  localStorage.setItem("textarea", JSON.stringify(entry);
+    //  }
+    
   
   function createSchedule() {
     for (let i = 0; i < dailySchedule.length; i++) {
