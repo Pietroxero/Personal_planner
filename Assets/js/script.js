@@ -1,4 +1,4 @@
-d// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
+// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.[Complete]
 
@@ -62,36 +62,88 @@ var dailySchedule = [
 
 ];
 
+var timeDisplayEl = $("#currentDay");
 
 
-$(document).ready(function () {
+$(document).ready(function () 
+{
 loading();
-    var dailyplanner = $('#dailyplanner'); 
 
-    $.each(dailySchedule, function(i, thetime){
 
-    dailyplanner.append("div id=\"thetime" + i +"/"" + "class=\"row\"></div>");
-$("#thetime"+i).append("<div id=\"timeOf" + i "\"" + "class=\"col-2 hour\">" + thetime.hours + "</div>");
-var Hourplan = thetime.tag;
+function displayDate() {
+    var nowTime = dayjs().format("MMMM DD, YYYY [at] h:mm:ss a");
+    timeDisplayEl.text(nowTime);
+  }
+  displayDate();
+  setInterval(displayDate, 1000);
 
-var wibblyWobbly = "";
-if (nowTime > Hourplan){
-    wibblyWobbly = "past";
-}
-else if (nowTime == Hourplan){ 
-    wibblyWobbly = "present";
-}
-else if (nowTime < Hourplan) {
-    wibblyWobbly = "future";
-}
+  var dailyplanner = $('#dailyplanner'); 
+   var nowTime = dayjs().format("H");
 
-//build out and correct for text area. 12/7/2022
-// $("#thetime"+i).append("<div id=\"timeOf" + i "\"" + "class=\"col-2 hour\">" + thetime.hours + "</div>");
-// $("#thetime"+i).append("<div id=\"timeOf" + i "\"" + "class=\"col-2 hour\">" + thetime.hours + "</div>");
+  $.each(dailySchedule, function(i, time){
 
+    dailyplanner.append("div id=\"time" + i +"\"" + "class=\"row\"></div>");
+    $("#time"+i).append("<div id=\"currentTime" + i + "\"" + "class=\"col-2 hour\">" + time.hours + "</div>");
+    let Hourplan = thetime.tag;
+    
+    var wibblyWobbly = "";
+    if (nowTime > Hourplan){
+        wibblyWobbly = "past";
+    }
+    else if (nowTime == Hourplan){ 
+        wibblyWobbly = "present";
+    }
+    else if (nowTime <  Hourplan){
+        wibblyWobbly = "future";
+    }
+    
+    //build out and correct for text area. 12/7/2022
+     $("#time"+i).append("<textarea=\"textarea" + i + "\"" + "class=\"col-8" + wibblyWobbly + "\"textarea\">" + dailySchedule[i].entry + "</>");
+    $("#time"+i).append("<div id=\"saveBtn" + i + "data-index=\"" + i + "\"" + "class=\"col-2 saveBtn\">" + "save" + "</div>");
+  
+});
+
+
+$(".savebtn").click(function(event){
+    var elements = event.target;
+    var index = parseInt($(elements).attr("data-index"),10);
+    saveEntry(index);
+    });
 
 });
-  // TODO: Add a listener for click events on the save button. This code should
+
+function loading() {
+    var data = localStorage.getItem("dailySchedule");
+    if (data) {
+        var dailyArray = JSON.parse(data);
+        $.each(dailyArray, function(i, item) {
+            dailySchedule[i].entry = item.entry;
+        });
+    }
+    else {
+        localStorage.setItem("dailySchedule", JSON.stringify(dailySchedule));
+    }
+}
+
+function saveEntry (index) 
+{
+    var textArea = $("textField" + index);
+    if(textArea.val()!=="")
+{
+dailySchedule[index].entry = textArea.val();
+localStorage.setItem("dailySchedule", JSON.stringify("dailySchedule"));
+}
+else{
+    alert("no entry to save")
+}
+};
+
+  
+
+  
+
+
+// TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in local storage.
 
   // HINT: What does `this` reference in the click listener function?
@@ -111,23 +163,13 @@ else if (nowTime < Hourplan) {
   // HINT: How can the id attribute of each time-block be used to do this?
 
   // TODO: [Complete] Add code to display the current date in the header of the page.
-  // $('#currentDay').text(dayjs().format('MMMM DD, YYYY [at] h:mm:ss a'));
-
-  function displayDate() {
-    var nowTime = dayjs().format("MMMM DD, YYYY [at] h:mm:ss a");
-    timeDisplayEl.text(nowTime);
-  }
-  displayDate();
-  setInterval(displayDate, 1000);
-
-  printDateData();
+  // 
 
   //code starting point will need help later
   //adds a the form to local storage and prints the data
   //issues: this did not save to local storage, thinking more of the functions needs definitions
 
 //To be reused at a later time
-// var timeDisplayEl = $("#currentDay");
 // var nineHourEL = $("#hour-9");
 // var tenHourEL = $("#hour-10");
 // var elevenHourEL = $("#hour-11");
@@ -154,4 +196,5 @@ else if (nowTime < Hourplan) {
 
 //   tenHourEL.on("click", dateSubmitForm);
   //Stuck: see student mini project JS line87 for starting point.
-});
+
+  //   printDateData();
