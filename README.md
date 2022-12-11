@@ -9,9 +9,7 @@ AS AN employee with a busy schedule
 I WANT to add important events to a daily planner
 SO THAT I can manage my time effectively
 
-
 ## Acceptance Criteria
-
 
 GIVEN I am using a daily planner to create a schedule
 WHEN I open the planner
@@ -26,6 +24,9 @@ WHEN I click the save button for that timeblock
 THEN the text for that event is saved in local storage
 WHEN I refresh the page
 THEN the saved events persist
+
+## Tests   
+Testing for this assignment included console.log of multiple functions to see what was happening with localstorage and how to grab it to print to the page. More so I went the different iterations of scripts to get the correct flow and objects working. 
 
 
 ## Screenshots
