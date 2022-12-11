@@ -81,19 +81,27 @@ function displayDate() {
     console.log(input.val());
     console.log(dailySchedule);
     localStorage.setItem(hour, input.val());
-    for ( let i = 0; i <dailySchedule.length; i++){
-        if(dailySchedule[i].tag == hour){
-            dailySchedule[i].entry = input.val();
-            // localStorage.setItem('dailySchedule', JSON.stringify(dailySchedule));
+    dailySchedule.forEach((time) => {
+    console.log(localStorage.getItem(time.tag));
+  });
+    // for ( let i = 0; i <dailySchedule.length; i++){
+    //     if(dailySchedule[i].tag == hour){
+    //         dailySchedule[i].entry = input.val();
+            
+    //     }
+        
+    // }
+    
+  }
+
+
+// localStorage.setItem('dailySchedule', JSON.stringify(dailySchedule));
             // dailySchedule = JSON.stringify(dailySchedule);
-        }
         // else {
         //   dailySchedule=[];
         // }
         // return dailySchedule;
-    }
-    
-  }
+
   //localstoregetitem(hour, input.val()); "time ID"
 
     //save to locale storage loop
@@ -121,6 +129,10 @@ function displayDate() {
       textbox.attr("data-hour", dailySchedule[i].tag);
       textbox.addClass("col-8 col-md-10 description");
       textbox.val(dailySchedule[i].entry);
+      let currVal = localStorage.getItem(dailySchedule[i].tag)
+      if (currVal !== null) {
+        textbox.val(localStorage.getItem(dailySchedule[i].tag))
+      }
   
       if (dayjs().hour() > dailySchedule[i].tag) {
         textbox.addClass("past");
