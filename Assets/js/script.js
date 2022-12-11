@@ -79,17 +79,25 @@ function displayDate() {
     console.log(event);
     console.log(hour);
     console.log(input.val());
-    console.log(dailySchedule)
+    console.log(dailySchedule);
+    localStorage.setItem(hour, input.val());
     for ( let i = 0; i <dailySchedule.length; i++){
-        if(dailySchedule[i].hours ==hour){
+        if(dailySchedule[i].tag == hour){
             dailySchedule[i].entry = input.val();
+            // localStorage.setItem('dailySchedule', JSON.stringify(dailySchedule));
+            // dailySchedule = JSON.stringify(dailySchedule);
         }
+        // else {
+        //   dailySchedule=[];
+        // }
+        // return dailySchedule;
     }
     
-  
   }
+  //localstoregetitem(hour, input.val()); "time ID"
+
     //save to locale storage loop
-    // localStorage.getItem
+    //  localStorage.getItem(dailySchedule[0].entry);
     // let localDailySchedule = localStorage.getItem(input.val);
     //  if (localDailySchedule === null) {
     //   dailySchedule = localDailySchedule;
